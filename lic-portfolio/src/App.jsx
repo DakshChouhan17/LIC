@@ -1,19 +1,18 @@
 // src/App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { I18nextProvider } from 'react-i18next'; // <--- Import I18nextProvider
-import i18n from './i18n'; // <--- Import your i18n configuration
+import { I18nextProvider } from 'react-i18next'; 
+import i18n from './i18n'; 
 
 // Global components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from './components/WhatsAppButton';
 
-// Page-specific components (or sections that act as pages
-
+// Page-specific components
 import Home from './pages/Home';
 import Services from './components/Services';
-import ServiceDetails from './pages/ServiceDetail';
+import ServiceDetails from './pages/ServiceDetails';
 import Contact from './components/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
@@ -22,33 +21,48 @@ import About from './components/About';
 import WhyMe from './components/WhyMe';
 import Testimonials from './components/Testimonials';
 
+// Admin Pages
+import CreateService from './Admin/service/create';
+import Trash from './Admin/service/trash';
+import Service from './Admin/service/service';
+import AdminHomePage from './Admin/AdminHomePage';
 
 function App() {
   return (
-    // <--- Wrap your application with I18nextProvider
     <I18nextProvider i18n={i18n}>
       <BrowserRouter>
         <Navbar />
         
         <main className="flex-grow">
           <Routes>
+            {/* Public routes */}
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} /> 
             <Route path="/service/:id" element={<ServiceDetails />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<MediaGallery />} />
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/about" element={<About />} />
             <Route path="/whyme" element={<WhyMe />} />
+
+            {/* Admin routes */}
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />}>
+  <Route index element={<AdminHomePage />} />  
+  <Route path="services" element={<Service />} />
+  <Route path="services/create" element={<CreateService />} /> 
+  <Route path="services/trash" element={<Trash />} />
+  {/* Agar settings bhi chahiye */}
+  {/* <Route path="settings" element={<Settings />} /> */}
+</Route>
+
           </Routes>
         </main>
 
         <Footer />
         <WhatsAppButton phoneNumber="919876543210" />
       </BrowserRouter>
-    </I18nextProvider> // <--- End I18nextProvider wrapper
+    </I18nextProvider>
   );
 }
 
