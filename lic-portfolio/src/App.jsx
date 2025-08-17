@@ -9,7 +9,6 @@ import WhatsAppButton from './components/WhatsAppButton';
 
 import Home from './pages/Home';
 import Services from './components/Services';
-import ServiceDetails from './pages/ServiceDetails';
 import Contact from './components/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
@@ -22,15 +21,23 @@ import CreateService from './Admin/service/create';
 import Trash from './Admin/service/trash';
 import Service from './Admin/service/service';
 import AdminHomePage from './Admin/AdminHomePage';
+import ServiceDetails from './components/ServiceDetail';
+import AdminTestimonials  from "./Admin/Testimonials/All";
+import AdminTestiCreate from './Admin/Testimonials/Create';
+import AdminTestiTrash from './Admin/Testimonials/Trash';
+import AdminContact from './Admin/AdminContact';
+import AdminSettings from './Admin/AdminSettings';
 
 function App() {
-  const [admin,setAdmin] = useState(false)
-  useEffect(()=>{
-const token = localStorage.getItem("admin")
-if(token){
-  setAdmin(token)
-}
-  },[])
+  const [admin, setAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("admin");
+    if (token) {
+      setAdmin(token);
+    }
+  }, []);
+
   return (
     <I18nextProvider i18n={i18n}>
       <BrowserRouter>
@@ -38,6 +45,7 @@ if(token){
         
         <main className="flex-grow">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} /> 
             <Route path="/service/:id" element={<ServiceDetails />} />
@@ -48,11 +56,20 @@ if(token){
             <Route path="/whyme" element={<WhyMe />} />
 
             <Route path="/admin" element={<AdminLogin />} />
+
             <Route path="/admin/dashboard" element={<AdminDashboard />}>
-            <Route index element={<AdminHomePage />} />  
-            <Route path="services" element={<Service />} />
-            <Route path="services/create" element={<CreateService />} /> 
-            <Route path="services/trash" element={<Trash />} />
+              <Route index element={<AdminHomePage />} />
+              <Route path="contacts" element={<AdminContact />} />
+              <Route path="settings" element={<AdminSettings />} />
+
+              <Route path="services" element={<Service />} />
+              <Route path="services/create" element={<CreateService />} /> 
+              <Route path="services/edit/:id" element={<CreateService />} /> 
+              <Route path="services/trash" element={<Trash />} />
+
+              <Route path="testimonials" element={<AdminTestimonials />} /> 
+              <Route path="testimonials/create" element={<AdminTestiCreate />} /> 
+              <Route path="testimonials/trash" element={<AdminTestiTrash />} /> 
             </Route>
           </Routes>
         </main>

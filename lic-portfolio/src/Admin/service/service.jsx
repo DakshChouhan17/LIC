@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FiEdit, FiTrash2, FiPlus } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 function Service() {
   const [services, setServices] = useState([]);
-
+    const navigate = useNavigate()
   useEffect(() => {
-    // Dummy Data (API se fetch karna hoga real case me)
     setServices([
       {
         id: 1,
@@ -30,12 +30,16 @@ function Service() {
     }
   };
 
+  const hanhleNavigate = (id)=>{
+    navigate(`/admin/dashboard/services/edit/${id}`)
+  }
+
   return (
     <div className="p-6">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">Service List</h2>
-        <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700">
+        <button onClick={()=>{navigate(`/admin/dashboard/services/create`)}} className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700">
           <FiPlus /> Add New Service
         </button>
       </div>
@@ -66,7 +70,7 @@ function Service() {
                 <td className="px-6 py-3 text-gray-600">{service.short}</td>
                 <td className="px-6 py-3">{service.date}</td>
                 <td className="px-6 py-3 text-center flex justify-center gap-3">
-                  <button className="text-blue-600 hover:text-blue-800">
+                  <button className="text-blue-600 hover:text-blue-800" onClick={()=>{hanhleNavigate(service.id)}}>
                     <FiEdit size={18} />
                   </button>
                   <button
