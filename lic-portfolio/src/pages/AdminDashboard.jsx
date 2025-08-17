@@ -31,10 +31,10 @@ const AdminDashboard = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-6 border-b">
-          <h2 className="text-2xl font-bold text-blue-600">Admin</h2>
-        </div>
+      <div className="w-64 bg-white shadow-md h-screen fixed left-0 top-0 overflow-y-auto">
+  <div className="p-6 border-b sticky top-0 bg-white z-50">
+    <h2 className="text-2xl font-bold text-blue-600">Admin</h2>
+  </div>
 
         <nav className="p-4 space-y-2">
           <NavLink
@@ -156,21 +156,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <header className="bg-white shadow-md p-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-700 flex items-center gap-2">
-            <FiHome /> Admin Dashboard
-          </h1>
-          <button
-            onClick={logout}
-            className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-          >
-            <FiLogOut /> Logout
-          </button>
-        </header>
-
-        {/* Dashboard Cards */}
+      <div className="flex-1 flex flex-col ml-64">
        <Outlet></Outlet>
       </div>
     </div>
